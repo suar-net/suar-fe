@@ -31,22 +31,34 @@ const {
   <div class="w-80 border-r bg-muted/30 flex-col fixed inset-y-0 left-0 z-10 lg:relative lg:flex">
     <div class="p-4 border-b">
       <div class="flex items-center justify-between mb-4">
-        <h1 class="text-xl font-bold">HTTP Client</h1>
-        <EnvironmentDialog />
+        <h1 class="text-xl font-bold">SUAR</h1>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" asChild>
+            <a href="">Login</a>
+          </Button>
+          <Button size="sm" asChild>
+            <a href="">Sign Up</a>
+          </Button>
+        </div>
       </div>
 
-      <Select v-model="selectedEnvironment">
-        <SelectTrigger>
-          <Globe class="h-4 w-4 mr-2" />
-          <SelectValue placeholder="Select Environment" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="None">No Environment</SelectItem>
-          <SelectItem v-for="env in mockEnvironments" :key="env.name" :value="env.name">
-            {{ env.name }}
-          </SelectItem>
-        </SelectContent>
-      </Select>
+      <div class="flex items-center gap-2">
+        <div class="flex-1">
+          <Select v-model="selectedEnvironment">
+            <SelectTrigger class="w-full">
+              <Globe class="h-4 w-4 mr-2" />
+              <SelectValue placeholder="Select Environment" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="None">No Environment</SelectItem>
+              <SelectItem v-for="env in mockEnvironments" :key="env.name" :value="env.name">
+                {{ env.name }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <EnvironmentDialog />
+      </div>
     </div>
 
     <Tabs v-model="activeTab" class="flex-1">
