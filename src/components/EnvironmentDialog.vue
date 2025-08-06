@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/dialog'
 import { Settings, Plus } from 'lucide-vue-next'
 
-const { mockEnvironments } = useHttpClient()
+const mockEnvironments: any[] = []
 </script>
 
 <template>
