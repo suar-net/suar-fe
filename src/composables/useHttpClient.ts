@@ -57,11 +57,23 @@ async function sendRequest() {
       if (bodyType.value === 'json') {
         try {
           body = JSON.parse(requestBody.value)
+          // Automatically set Content-Type for JSON if not already set
+          if (!headers['Content-Type'] && !headers['content-type']) {
+            headers['Content-Type'] = ['application/json']
+          }
         } catch {
           throw new Error('Invalid JSON in request body')
         }
       } else {
         body = requestBody.value
+        // Set appropriate Content-Type for other body types
+        if (!headers['Content-Type'] && !headers['content-type']) {
+          if (bodyType.value === 'form') {
+            headers['Content-Type'] = ['application/x-www-form-urlencoded']
+          } else {
+            headers['Content-Type'] = ['text/plain']
+          }
+        }
       }
     }
 
