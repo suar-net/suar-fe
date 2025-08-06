@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useHttpClient } from '@/composables/useHttpClient'
+import { useAuth } from '@/composables/useAuth'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -11,6 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
+import AuthDialog from './authentication/AuthDialog.vue'
 import EnvironmentDialog from './EnvironmentDialog.vue'
 import { Folder, History, ChevronRight, ChevronDown, Globe, Plus, Trash2 } from 'lucide-vue-next'
 
@@ -25,6 +28,18 @@ const {
   getStatusColor,
   getMethodColor,
 } = useHttpClient()
+
+// ✅ Add this to get auth functionality
+const { isAuthenticated, logout } = useAuth()
+
+// ✅ Add this for the AuthDialog
+const showAuthDialog = ref(false)
+const authView = ref('login')
+
+const openAuthDialog = (view: 'login' | 'register') => {
+  authView.value = view
+  showAuthDialog.value = true
+}
 </script>
 
 <template>
@@ -32,15 +47,24 @@ const {
     <div class="p-4 border-b">
       <div class="flex items-center justify-between mb-4">
         <h1 class="text-xl font-bold">SUAR</h1>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" asChild>
-            <a href="">Login</a>
-          </Button>
-          <Button size="sm" asChild>
-            <a href="">Sign Up</a>
-          </Button>
+        <div class="flex items-center gap-2">
+          <div v-if="isAuthenticated">
+            <Button variant="outline" size="sm" @click="logout">
+              Logout
+            </Button>
+          </div>
+          <div v-else class="flex items-center gap-2">
+            <Button variant="outline" size="sm" @click="openAuthDialog('login')">
+              Login
+            </Button>
+            <Button size="sm" @click="openAuthDialog('register')">
+              Sign Up
+            </Button>
+          </div>
         </div>
       </div>
+
+      <AuthDialog :open="showAuthDialog" :initial-view="authView" @update:open="showAuthDialog = $event" />
 
       <div class="flex items-center gap-2">
         <div class="flex-1">
