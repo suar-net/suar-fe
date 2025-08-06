@@ -41,13 +41,27 @@ const {
       <!-- URL Bar -->
       <div class="flex gap-2">
         <Select v-model="selectedMethod">
-          <SelectTrigger class="w-32">
-            <SelectValue />
+          <SelectTrigger class="w-28">
+            <SelectValue>
+              <div class="flex items-center">
+                <Badge
+                  variant="secondary"
+                  :class="`${getMethodColor(selectedMethod)} text-white text-xs px-2`"
+                >
+                  {{ selectedMethod }}
+                </Badge>
+              </div>
+            </SelectValue>
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem v-for="method in httpMethods" :key="method" :value="method">
+          <SelectContent class="z-50 bg-white border shadow-lg">
+            <SelectItem
+              v-for="method in httpMethods"
+              :key="method"
+              :value="method"
+              class="cursor-pointer hover:bg-gray-350"
+            >
               <Badge
-                variant="secondary"
+                variant="outline"
                 :class="`${getMethodColor(method)} text-white text-xs px-2 mr-2`"
               >
                 {{ method }}
