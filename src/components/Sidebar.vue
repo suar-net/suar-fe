@@ -52,13 +52,12 @@ const openAuthDialog = (view: 'login' | 'register') => {
 
       <div class="flex items-center gap-2">
         <div class="flex-1">
-          <Select>
+          <Select disabled>
             <SelectTrigger class="w-full">
               <Globe class="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Select Environment" />
+              <SelectValue placeholder="Env Variable (Coming Soon)"/>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="None">No Environment</SelectItem>
               <!-- <SelectItem v-for="env in mockEnvironments" :key="env.name" :value="env.name">
                 {{ env.name }}
               </SelectItem> -->
@@ -87,6 +86,16 @@ const openAuthDialog = (view: 'login' | 'register') => {
           <Button variant="outline" size="sm">
             <Plus class="h-4 w-4" />
           </Button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-[calc(100vh-300px)]">
+          <img 
+            src="/under-construction.png" 
+            alt="Under Construction" 
+            class="w-32 h-32 opacity-60 mb-4"
+          />
+          <p class="text-sm text-muted-foreground text-center">
+            Collections feature is coming soon!
+          </p>
         </div>
         <!-- <ScrollArea class="h-[calc(100vh-200px)]">
           <div class="space-y-2">
@@ -126,6 +135,16 @@ const openAuthDialog = (view: 'login' | 'register') => {
           <Button variant="outline" size="sm">
             <Trash2 class="h-4 w-4" />
           </Button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-[calc(100vh-300px)]">
+          <img 
+            src="/under-construction.png" 
+            alt="Under Construction" 
+            class="w-32 h-32 opacity-60 mb-4"
+          />
+          <p class="text-sm text-muted-foreground text-center">
+            History feature is coming soon!
+          </p>
         </div>
         <!-- <ScrollArea class="h-[calc(100vh-200px)]">
           <div class="space-y-2">

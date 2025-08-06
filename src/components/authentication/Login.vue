@@ -32,7 +32,7 @@ const handleLogin = async () => {
 <template>
   <CardHeader class="space-y-1 text-center">
     <CardTitle class="text-2xl font-bold">Welcome back</CardTitle>
-    <CardDescription>Sign in to your account to continue using HTTP Client</CardDescription>
+    <CardDescription>Sign in to your account to continue using Suar</CardDescription>
   </CardHeader>
   <CardContent class="space-y-4">
     <div class="space-y-2">

@@ -44,7 +44,7 @@ const passwordRequirements = computed(() => [
 <template>
   <CardHeader class="space-y-1 text-center">
     <CardTitle class="text-2xl font-bold">Create your account</CardTitle>
-    <CardDescription>Get started with HTTP Client and manage your API requests</CardDescription>
+    <CardDescription>Get started with Suar and manage your API requests</CardDescription>
   </CardHeader>
   <CardContent class="space-y-4">
     <div class="space-y-2">
