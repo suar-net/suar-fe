@@ -1,12 +1,10 @@
-// src/services/apiClient.ts
 import axios from 'axios'
 import { useAuth } from '@/composables/useAuth'
 
 const apiClient = axios.create({
-  baseURL: '/api/v1', // Your base API URL for protected routes
+  baseURL: '/api/v1',
 })
 
-// This interceptor runs before each request is sent.
 apiClient.interceptors.request.use(
   (config) => {
     const { token } = useAuth()
