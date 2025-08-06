@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useAuth } from '@/composables/useAuth'
 
 const apiClient = axios.create({
-  baseURL: '/api/v1',
+  baseURL: import.meta.env.VITE_API_BASE_URL
 })
 
 apiClient.interceptors.request.use(

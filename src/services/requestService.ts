@@ -1,6 +1,6 @@
 import apiClient from './apiClient'
 
-const API_URL = '/request'
+const API_URL = '/api/v1/request'
 
 export async function makeRequest(
   method: string,
