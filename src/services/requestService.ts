@@ -1,15 +1,16 @@
 import apiClient from './apiClient'
+import type { ApiResponse, HttpHeaders, RequestBody } from '@/types/api'
 
 const API_URL = '/api/v1/request'
 
 export async function makeRequest(
   method: string,
   url: string,
-  headers: any,
-  body: any,
+  headers: HttpHeaders,
+  body: RequestBody,
   timeout: number,
-) {
-  const response = await apiClient.post(`${API_URL}`, {
+): Promise<ApiResponse> {
+  const response = await apiClient.post<ApiResponse>(API_URL, {
     method,
     url,
     headers,
