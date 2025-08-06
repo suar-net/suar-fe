@@ -68,7 +68,7 @@ const openAuthDialog = (view: 'login' | 'register') => {
       </div>
     </div>
 
-    <Tabs class="flex-1">
+    <Tabs class="flex-1" defaultValue="history">
       <TabsList class="grid w-full grid-cols-2 mt-4">
         <TabsTrigger value="collections" class="flex items-center gap-2">
           <Folder class="h-4 w-4" />
@@ -94,7 +94,7 @@ const openAuthDialog = (view: 'login' | 'register') => {
             class="w-32 h-32 opacity-60 mb-4"
           />
           <p class="text-sm text-muted-foreground text-center">
-            Collections feature is coming soon!
+            Collections feature is still under development!
           </p>
         </div>
         <!-- <ScrollArea class="h-[calc(100vh-200px)]">
@@ -143,7 +143,7 @@ const openAuthDialog = (view: 'login' | 'register') => {
             class="w-32 h-32 opacity-60 mb-4"
           />
           <p class="text-sm text-muted-foreground text-center">
-            History feature is coming soon!
+            History feature is still under development!
           </p>
         </div>
         <!-- <ScrollArea class="h-[calc(100vh-200px)]">
