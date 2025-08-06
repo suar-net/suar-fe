@@ -17,22 +17,8 @@ import AuthDialog from './authentication/AuthDialog.vue'
 import EnvironmentDialog from './EnvironmentDialog.vue'
 import { Folder, History, ChevronRight, ChevronDown, Globe, Plus, Trash2 } from 'lucide-vue-next'
 
-const {
-  selectedEnvironment,
-  expandedCollections,
-  activeTab,
-  mockCollections,
-  mockHistory,
-  mockEnvironments,
-  toggleCollection,
-  getStatusColor,
-  getMethodColor,
-} = useHttpClient()
-
-// ✅ Add this to get auth functionality
 const { isAuthenticated, logout } = useAuth()
 
-// ✅ Add this for the AuthDialog
 const showAuthDialog = ref(false)
 const authView = ref('login')
 
@@ -66,16 +52,16 @@ const openAuthDialog = (view: 'login' | 'register') => {
 
       <div class="flex items-center gap-2">
         <div class="flex-1">
-          <Select v-model="selectedEnvironment">
+          <Select>
             <SelectTrigger class="w-full">
               <Globe class="h-4 w-4 mr-2" />
               <SelectValue placeholder="Select Environment" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="None">No Environment</SelectItem>
-              <SelectItem v-for="env in mockEnvironments" :key="env.name" :value="env.name">
+              <!-- <SelectItem v-for="env in mockEnvironments" :key="env.name" :value="env.name">
                 {{ env.name }}
-              </SelectItem>
+              </SelectItem> -->
             </SelectContent>
           </Select>
         </div>
@@ -83,7 +69,7 @@ const openAuthDialog = (view: 'login' | 'register') => {
       </div>
     </div>
 
-    <Tabs v-model="activeTab" class="flex-1">
+    <Tabs class="flex-1">
       <TabsList class="grid w-full grid-cols-2 mt-4">
         <TabsTrigger value="collections" class="flex items-center gap-2">
           <Folder class="h-4 w-4" />
@@ -102,7 +88,7 @@ const openAuthDialog = (view: 'login' | 'register') => {
             <Plus class="h-4 w-4" />
           </Button>
         </div>
-        <ScrollArea class="h-[calc(100vh-200px)]">
+        <!-- <ScrollArea class="h-[calc(100vh-200px)]">
           <div class="space-y-2">
             <div v-for="collection in mockCollections" :key="collection.id" class="space-y-1">
               <div
@@ -131,7 +117,7 @@ const openAuthDialog = (view: 'login' | 'register') => {
               </div>
             </div>
           </div>
-        </ScrollArea>
+        </ScrollArea> -->
       </TabsContent>
 
       <TabsContent value="history" class="mt-4 px-4">
@@ -141,7 +127,7 @@ const openAuthDialog = (view: 'login' | 'register') => {
             <Trash2 class="h-4 w-4" />
           </Button>
         </div>
-        <ScrollArea class="h-[calc(100vh-200px)]">
+        <!-- <ScrollArea class="h-[calc(100vh-200px)]">
           <div class="space-y-2">
             <div
               v-for="request in mockHistory"
@@ -162,7 +148,7 @@ const openAuthDialog = (view: 'login' | 'register') => {
               <div class="text-xs text-muted-foreground">{{ request.timestamp }}</div>
             </div>
           </div>
-        </ScrollArea>
+        </ScrollArea> -->
       </TabsContent>
     </Tabs>
   </div>
