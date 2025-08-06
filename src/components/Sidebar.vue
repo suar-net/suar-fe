@@ -49,22 +49,20 @@ const openAuthDialog = (view: 'login' | 'register') => {
         <h1 class="text-xl font-bold">SUAR</h1>
         <div class="flex items-center gap-2">
           <div v-if="isAuthenticated">
-            <Button variant="outline" size="sm" @click="logout">
-              Logout
-            </Button>
+            <Button variant="outline" size="sm" @click="logout"> Logout </Button>
           </div>
           <div v-else class="flex items-center gap-2">
-            <Button variant="outline" size="sm" @click="openAuthDialog('login')">
-              Login
-            </Button>
-            <Button size="sm" @click="openAuthDialog('register')">
-              Sign Up
-            </Button>
+            <Button variant="outline" size="sm" @click="openAuthDialog('login')"> Login </Button>
+            <Button size="sm" @click="openAuthDialog('register')"> Sign Up </Button>
           </div>
         </div>
       </div>
 
-      <AuthDialog :open="showAuthDialog" :initial-view="authView" @update:open="showAuthDialog = $event" />
+      <AuthDialog
+        :open="showAuthDialog"
+        :initial-view="authView"
+        @update:open="showAuthDialog = $event"
+      />
 
       <div class="flex items-center gap-2">
         <div class="flex-1">
@@ -154,9 +152,9 @@ const openAuthDialog = (view: 'login' | 'register') => {
                 <Badge
                   variant="secondary"
                   :class="`${getMethodColor(request.method)} text-white text-xs px-2`"
-                  >
-                    {{ request.method }}
-                  </Badge>
+                >
+                  {{ request.method }}
+                </Badge>
                 <div :class="`w-2 h-2 rounded-full ${getStatusColor(request.status)}`" />
                 <span class="text-xs text-muted-foreground">{{ request.status }}</span>
               </div>

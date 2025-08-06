@@ -1,18 +1,18 @@
-import { ref, computed } from 'vue';
+import { ref, computed } from 'vue'
 
-const token = ref<string | null>(localStorage.getItem('authToken'));
+const token = ref<string | null>(localStorage.getItem('authToken'))
 
 export function useAuth() {
-  const isAuthenticated = computed(() => !!token.value);
+  const isAuthenticated = computed(() => !!token.value)
 
   function setToken(newToken: string) {
-    token.value = newToken;
-    localStorage.setItem('authToken', newToken);
+    token.value = newToken
+    localStorage.setItem('authToken', newToken)
   }
 
   function logout() {
-    token.value = null;
-    localStorage.removeItem('authToken');
+    token.value = null
+    localStorage.removeItem('authToken')
   }
 
   return {
@@ -20,5 +20,5 @@ export function useAuth() {
     isAuthenticated,
     setToken,
     logout,
-  };
+  }
 }
