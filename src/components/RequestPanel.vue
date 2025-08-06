@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useHttpClient } from '@/composables/useHttpClient'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,7 +14,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { Send, Plus, Trash2 } from 'lucide-vue-next'
 
-const { selectedMethod, url, httpMethods, getMethodColor } = useHttpClient()
+import { useHttpClient } from '@/composables/useHttpClient'
+
+const {
+  selectedMethod,
+  url,
+  httpMethods,
+  getMethodColor,
+  isLoading,
+  requestParams,
+  requestHeaders,
+  requestBody,
+  authType,
+  bodyType,
+  sendRequest,
+  addParam,
+  removeParam,
+  addHeader,
+  removeHeader,
+} = useHttpClient()
 </script>
 
 <template>
@@ -39,9 +56,9 @@ const { selectedMethod, url, httpMethods, getMethodColor } = useHttpClient()
           </SelectContent>
         </Select>
         <Input placeholder="Enter request URL" v-model="url" class="flex-1" />
-        <Button class="px-6">
+        <Button class="px-6" @click="sendRequest" :disabled="isLoading">
           <Send class="h-4 w-4 mr-2" />
-          Send
+          {{ isLoading ? 'Sending...' : 'Send' }}
         </Button>
       </div>
 
@@ -51,7 +68,7 @@ const { selectedMethod, url, httpMethods, getMethodColor } = useHttpClient()
           <TabsTrigger value="params">Params</TabsTrigger>
           <TabsTrigger value="headers">Headers</TabsTrigger>
           <TabsTrigger value="body">Body</TabsTrigger>
-          <TabsTrigger value="auth">Auth</TabsTrigger>
+          <!-- <TabsTrigger value="auth">Auth</TabsTrigger> -->
         </TabsList>
 
         <TabsContent value="params" class="mt-4">
@@ -61,14 +78,14 @@ const { selectedMethod, url, httpMethods, getMethodColor } = useHttpClient()
               <div>Value</div>
               <div>Actions</div>
             </div>
-            <div v-for="i in [1, 2, 3]" :key="i" class="grid grid-cols-3 gap-2">
-              <Input placeholder="Parameter name" />
-              <Input placeholder="Parameter value" />
-              <Button variant="outline" size="sm">
+            <div v-for="param in requestParams" :key="param.id" class="grid grid-cols-3 gap-2">
+              <Input v-model="param.key" placeholder="Parameter name" />
+              <Input v-model="param.value" placeholder="Parameter value" />
+              <Button variant="outline" size="sm" @click="removeParam(param.id)">
                 <Trash2 class="h-4 w-4" />
               </Button>
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" @click="addParam">
               <Plus class="h-4 w-4 mr-2" />
               Add Parameter
             </Button>
@@ -82,14 +99,14 @@ const { selectedMethod, url, httpMethods, getMethodColor } = useHttpClient()
               <div>Value</div>
               <div>Actions</div>
             </div>
-            <div v-for="i in [1, 2]" :key="i" class="grid grid-cols-3 gap-2">
-              <Input placeholder="Header name" />
-              <Input placeholder="Header value" />
-              <Button variant="outline" size="sm">
+            <div v-for="header in requestHeaders" :key="header.id" class="grid grid-cols-3 gap-2">
+              <Input v-model="header.key" placeholder="Header name" />
+              <Input v-model="header.value" placeholder="Header value" />
+              <Button variant="outline" size="sm" @click="removeHeader(header.id)">
                 <Trash2 class="h-4 w-4" />
               </Button>
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" @click="addHeader">
               <Plus class="h-4 w-4 mr-2" />
               Add Header
             </Button>
@@ -98,7 +115,7 @@ const { selectedMethod, url, httpMethods, getMethodColor } = useHttpClient()
 
         <TabsContent value="body" class="mt-4">
           <div class="space-y-4">
-            <Select defaultValue="json">
+            <Select v-model="bodyType">
               <SelectTrigger class="w-48">
                 <SelectValue />
               </SelectTrigger>
@@ -109,11 +126,15 @@ const { selectedMethod, url, httpMethods, getMethodColor } = useHttpClient()
                 <SelectItem value="binary">Binary</SelectItem>
               </SelectContent>
             </Select>
-            <Textarea placeholder="Enter request body" class="min-h-[200px] font-mono" />
+            <Textarea
+              v-model="requestBody"
+              placeholder="Enter request body"
+              class="min-h-[200px] font-mono"
+            />
           </div>
         </TabsContent>
 
-        <TabsContent value="auth" class="mt-4">
+        <!-- <TabsContent value="auth" class="mt-4">
           <div class="space-y-4">
             <Select defaultValue="none">
               <SelectTrigger class="w-48">
@@ -137,7 +158,7 @@ const { selectedMethod, url, httpMethods, getMethodColor } = useHttpClient()
               </div>
             </div>
           </div>
-        </TabsContent>
+        </TabsContent> -->
       </Tabs>
     </div>
   </div>
