@@ -78,7 +78,7 @@ function downloadResponse() {
               >
                 {{ response.status_code }} {{ getStatusText(response.status_code) }}
               </Badge>
-              <Badge variant="outline">{{ response.duration }}ms</Badge>
+              <Badge variant="outline">{{ response.duration.toString().substring(0, 3) }}ms</Badge>
               <Badge variant="outline">{{ formatFileSize(response.size) }}</Badge>
               <Button variant="outline" size="sm" @click="copyResponse">
                 <Copy class="h-4 w-4" />
@@ -109,23 +109,25 @@ function downloadResponse() {
             <TabsTrigger value="headers">Headers</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="body" class="mt-4 h-[calc(100%-60px)]">
-            <ScrollArea class="h-full">
-              <pre class="text-sm bg-muted p-4 rounded-md overflow-auto">{{ formattedBody }}</pre>
+          <TabsContent value="body" class="mt-4">
+            <ScrollArea class="h-[400px] w-full border rounded-md">
+              <pre class="text-sm p-4 whitespace-pre-wrap break-words">{{ formattedBody }}</pre>
             </ScrollArea>
           </TabsContent>
 
           <TabsContent value="headers" class="mt-4">
-            <div class="space-y-2">
-              <div
-                v-for="header in responseHeaders"
-                :key="header.key"
-                class="flex items-center justify-between p-2 bg-muted rounded"
-              >
-                <span class="font-medium">{{ header.key }}:</span>
-                <span class="text-muted-foreground">{{ header.value }}</span>
+            <ScrollArea class="h-[400px] w-full border rounded-md">
+              <div class="space-y-2 p-4">
+                <div
+                  v-for="header in responseHeaders"
+                  :key="header.key"
+                  class="flex items-center justify-between p-2 bg-muted rounded"
+                >
+                  <span class="font-medium">{{ header.key }}:</span>
+                  <span class="text-muted-foreground">{{ header.value }}</span>
+                </div>
               </div>
-            </div>
+            </ScrollArea>
           </TabsContent>
         </Tabs>
 
